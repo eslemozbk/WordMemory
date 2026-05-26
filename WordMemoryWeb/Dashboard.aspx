@@ -40,16 +40,15 @@
                 <a href="WordList.aspx" class="btn btn-outline-primary w-100 p-3">Kelime Listesi</a>
             </div>
 
-           <div class="col-md-3 mb-3">
-               <a href="Quiz.aspx" class="btn btn-outline-primary w-100 p-3">Sınava Başla</a>
-           </div>
-
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="Login.aspx" class="btn btn-secondary">Çıkış Yap</a>
-        </div>
-    </div>
+            <div class="col-md-3 mb-3">
+                <a href="Wordle.aspx" class="btn btn-outline-primary w-100 p-3">Wordle</a>
+    
+</div>
+             </div>
+        <div class="d-flex justify-content-center mt-4">
+    <a href="Login.aspx" class="btn btn-secondary px-4">
+        Çıkış Yap
+    </a>
 </div>
         </form>
 </body>

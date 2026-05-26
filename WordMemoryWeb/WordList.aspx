@@ -18,7 +18,6 @@
 
         <asp:GridView ID="gvWords"
             runat="server"
-            AutoGenerateColumns="False"
             CssClass="table table-bordered table-hover"
             GridLines="None">
 
@@ -36,6 +35,13 @@
                     HeaderText="Resim"
                     ControlStyle-Width="100"
                     ControlStyle-Height="100" />
+
+              <asp:HyperLinkField 
+                    HeaderText="Detay"
+                    Text="Detay"
+                    DataNavigateUrlFields="WordID"
+                    DataNavigateUrlFormatString="WordDetail.aspx?id={0}"
+                    ControlStyle-CssClass="btn btn-info btn-dark" />
 
             </Columns>
 
