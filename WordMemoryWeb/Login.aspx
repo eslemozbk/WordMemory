@@ -29,9 +29,11 @@
                 </div>
 
                 <asp:Button ID="btnLogin" runat="server" Text="Giriş Yap" CssClass="btn btn-primary w-100" OnClick="btnLogin_Click" />
-
                 <div class="text-center mt-3">
-                    <a href="Login.aspx">Hesabın yok mu? Kayıt Ol</a>
+                  <a href="ForgotPassword.aspx">Şifremi Unuttum</a>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="Register.aspx">Hesabın yok mu? Kayıt Ol</a>
                 </div>
             </div>
         </div>

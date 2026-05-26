@@ -44,9 +44,12 @@ namespace WordMemoryWeb
                     }
                 }
 
-                string insertQuery = @" INSERT INTO Users (UserName, Email, Password)
-                                        OUTPUT INSERTED.UserID
-                                        VALUES (@UserName, @Email, @Password)";
+                string insertQuery = @"
+            INSERT INTO Users (UserName, Email, Password)
+            OUTPUT INSERTED.UserID
+            VALUES (@UserName, @Email, @Password)";
+
+                int newUserID;
 
                 using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                 {
@@ -54,24 +57,39 @@ namespace WordMemoryWeb
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Password", password);
 
-                    cmd.ExecuteNonQuery();
+                    newUserID = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-                String progressQuery = @" INSERT INTO UserWordProgress (UserID, WordID, CorrectStreak, CurrentStep, NextQuizDate, Islearned)
-                                        SELECT @UserID, WordID, 0, 0, GETDATE(), 0
-                                        FROM Words";
+                string progressQuery = @"
+            INSERT INTO UserWordProgress 
+            (UserID, WordID, CorrectStreak, CurrentStep, NextQuizDate, IsLearned)
+            SELECT @UserID, WordID, 0, 0, GETDATE(), 0
+            FROM Words";
 
                 using (SqlCommand progressCmd = new SqlCommand(progressQuery, conn))
                 {
-                    progressCmd.Parameters.AddWithValue("@UserID", userName);
+                    progressCmd.Parameters.AddWithValue("@UserID", newUserID);
                     progressCmd.ExecuteNonQuery();
                 }
 
-                lblMessage.ForeColor = System.Drawing.Color.Green;
-                lblMessage.Text = "Kayıt başarılı. Giriş sayfasına yönlendiriliyorsunuz.";
+                string settingQuery = @"
+            INSERT INTO UserSettings (UserID, NewWordCount)
+            VALUES (@UserID, 10)";
 
-                Response.Redirect("Login.aspx");
+                using (SqlCommand settingCmd = new SqlCommand(settingQuery, conn))
+                {
+                    settingCmd.Parameters.AddWithValue("@UserID", newUserID);
+                    settingCmd.ExecuteNonQuery();
+                }
             }
+
+            lblMessage.ForeColor = System.Drawing.Color.Green;
+            lblMessage.Text = "Kayıt başarılı. Giriş sayfasına yönlendiriliyorsunuz.";
+
+            Response.Redirect("Login.aspx");
         }
+
+
     }
+    
 }
