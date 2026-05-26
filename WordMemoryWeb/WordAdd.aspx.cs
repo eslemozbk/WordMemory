@@ -94,12 +94,12 @@ namespace WordMemoryWeb
         private void InsertSample(SqlConnection conn, int wordID, string sampleText)
         {
             string insertSampleQuery = @"
-            INSERT INTO Samples (WordID, SampleSentence)
-            VALUES (@WordID, @SampleSentence)";
+            INSERT INTO WordSamples (WordID, SampleSentence)
+            VALUES (@WordID, @WordSamples)";
             using (SqlCommand cmd = new SqlCommand(insertSampleQuery, conn))
             {
                 cmd.Parameters.AddWithValue("@WordID", wordID);
-                cmd.Parameters.AddWithValue("@SampleSentence", sampleText);
+                cmd.Parameters.AddWithValue("@WordSamples", sampleText);
                 cmd.ExecuteNonQuery();
             }
         }
